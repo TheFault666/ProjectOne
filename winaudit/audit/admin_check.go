@@ -1,5 +1,4 @@
 // Author: D-Fault(www.github.com/TheFault666)
-// SPUP, Jodhpur
 package audit
 
 import (
@@ -23,4 +22,3 @@ func IsAdmin() bool {
 }
 
 //Author: D-Fault(www.github.com/TheFault666)
-//SPUP, Jodhpur
