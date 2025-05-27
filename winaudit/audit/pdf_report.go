@@ -1,5 +1,4 @@
 // Author: D-Fault(www.github.com/TheFault666)
-// SPUP, Jodhpur
 package audit
 
 import (
@@ -27,7 +26,7 @@ func addWatermark(pdf *gofpdf.Fpdf, text string) {
 
 func GeneratePDFReport(
 	ip string,
-	systemInfo, osDetails, userDetails, networkDetails, usbStatus, bitLocker, biosDetails, secureBoot, antivirus, pirated, updates string,
+	systemInfo, osDetails, userDetails, networkDetails, usbStatus, bitLocker, biosDetails, secureBoot, antivirus, firewall, pirated, updates, outdated string,
 	startTime time.Time,
 ) error {
 	filename := fmt.Sprintf("%s_Security_Audit_Report.pdf", ip)
@@ -36,7 +35,7 @@ func GeneratePDFReport(
 
 	// Add watermark on every page automatically
 	pdf.SetHeaderFunc(func() {
-		addWatermark(pdf, "SPUP_audit")
+		addWatermark(pdf, "D-Fault")
 	})
 
 	pdf.AddPage()
@@ -58,17 +57,19 @@ func GeneratePDFReport(
 		pdf.Ln(6)
 	}
 
-	writeSection("Complete System Details", systemInfo)
-	writeSection("OS Details", osDetails)
-	writeSection("User Details", userDetails)
-	writeSection("Network Details", networkDetails)
-	writeSection("USB Storage Access", usbStatus)
-	writeSection("BitLocker Details", bitLocker)
-	writeSection("BIOS Details", biosDetails)
-	writeSection("Secure Boot Status", secureBoot)
-	writeSection("Antivirus Details", antivirus)
-	writeSection("Pirated Software Scan", pirated)
-	writeSection("Available Software Updates", updates)
+	writeSection("Complete System Details:", systemInfo)
+	writeSection("OS Details:", osDetails)
+	writeSection("User Details:", userDetails)
+	writeSection("Network Details:", networkDetails)
+	writeSection("USB Storage Access:", usbStatus)
+	writeSection("BitLocker Details:", bitLocker)
+	writeSection("BIOS Details:", biosDetails)
+	writeSection("Secure Boot Status:", secureBoot)
+	writeSection("Antivirus Details:", antivirus)
+	writeSection("Firewall Details:", firewall)
+	writeSection("Pirated Software Scan:", pirated)
+	writeSection("Available Software Updates:", updates)
+	writeSection("Outdated Softwares:", outdated)
 
 	err := pdf.OutputFileAndClose(filename)
 	if err != nil {
@@ -78,4 +79,3 @@ func GeneratePDFReport(
 }
 
 //Author: D-Fault(www.github.com/TheFault666)
-//SPUP, Jodhpur
