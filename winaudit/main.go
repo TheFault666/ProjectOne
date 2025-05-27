@@ -1,12 +1,10 @@
 // Author: D-Fault(www.github.com/TheFault666)
-// SPUP, Jodhpur
 package main
 
 import (
 	"fmt"
 	"log"
 	"time"
-
 	"winaudit/audit"
 )
 
@@ -28,7 +26,7 @@ func printProgress(step, total int, message string) {
 }
 
 func main() {
-	totalSteps := 12
+	totalSteps := 14
 	currentStep := 0
 
 	currentStep++
@@ -75,12 +73,20 @@ func main() {
 	antivirus := audit.GetAntivirusInfo()
 
 	currentStep++
+	printProgress(currentStep, totalSteps, "Checking firewall info")
+	firewall := audit.GenerateFirewallReport()
+
+	currentStep++
 	printProgress(currentStep, totalSteps, "Checking pirated software")
 	pirated := audit.CheckPiratedSoftware()
 
 	currentStep++
 	printProgress(currentStep, totalSteps, "Checking software updates")
 	updates := audit.CheckWindowsUpdate()
+
+	currentStep++
+	printProgress(currentStep, totalSteps, "Checking for outdated apps")
+	outdated := audit.CheckOutdatedApps()
 
 	currentStep++
 	printProgress(currentStep, totalSteps, "Generating PDF report")
@@ -95,8 +101,10 @@ func main() {
 		biosDetails,
 		secureBoot,
 		antivirus,
+		firewall,
 		pirated,
 		updates,
+		outdated,
 		time.Now(),
 	)
 	if err != nil {
@@ -107,4 +115,3 @@ func main() {
 }
 
 //Author: D-Fault(www.github.com/TheFault666)
-//SPUP, Jodhpur
